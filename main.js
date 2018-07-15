@@ -1,15 +1,16 @@
-const electron = require("electron"),
-    path = require("path");
+const path = require("path");
     url = require("url");
 
-const { app, BrowserWindow } = electron;
+const { app, BrowserWindow } = require("electron");
 
 let mainWindow;
 
 function createWindow(){
   mainWindow = new BrowserWindow({
     width: 800,
-    height: 600
+    height: 600,
+    resizable: false,
+    title: "SH-Coin Wallet"
   });
 
   mainWindow.loadURL(
@@ -20,5 +21,21 @@ function createWindow(){
     })
   );
 }
+
+app.on("closed", () => {
+  mainWindow = null;
+});
+
+app.on("window-all-closed", () => {
+  if(process.platform !== "darwin"){
+    app.quit();
+  }
+});
+
+app.on("activate", () => {
+  if(mainWindow === null){
+    createWindow();
+  }
+});
 
 app.on("ready", createWindow);
