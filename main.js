@@ -1,5 +1,12 @@
 const path = require("path"),
-    url = require("url");
+    url = require("url"),
+    shcoin = require("./SH-coin/src/server");
+
+const server = shcoin.app.listen(4000, () => {
+  console.log("running localhost4000");
+});
+
+shcoin.startP2PServer(server);
 
 const { app, BrowserWindow } = require("electron");
 
