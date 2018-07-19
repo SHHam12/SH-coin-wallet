@@ -1,12 +1,16 @@
 const path = require("path"),
     url = require("url"),
+    getPort = require("get-port"),
     shcoin = require("./SH-coin/src/server");
 
-const server = shcoin.app.listen(4000, () => {
-  console.log("running localhost4000");
+getPort().then(port => {
+  const server = shcoin.app.listen(port, () => {
+    console.log(`Running blockchain node on: ${port}`);
+  });
+
+  shcoin.startP2PServer(server);
 });
 
-shcoin.startP2PServer(server);
 
 const { app, BrowserWindow } = require("electron");
 
