@@ -9,6 +9,7 @@ getPort().then(port => {
   });
 
   shcoin.startP2PServer(server);
+  global.sharedPort = port;
 });
 
 
