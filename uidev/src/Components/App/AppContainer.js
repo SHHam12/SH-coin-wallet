@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { injectGlobal } from "styled-components";
+import PropTypes from "prop-types";
 import reset from "styled-reset";
 import axios from "axios";
 import typography from "../../typography";
@@ -18,18 +19,28 @@ class AppContainer extends Component {
   state = {
     isLoading: true
   };
+  static propTypes = {
+    sharedPort: PropTypes.number.isRequired
+  };
   componentDidMount = () => {
-    this._registerOnMaster();
+    const { sharedPort } = this.props;
+    this._registerOnMaster(sharedPort);
+    this._getAddress(sharedPort);
   };
   render() {
     baseStyles();
     return <AppPresenter {...this.state} />;
   }
-  _registerOnMaster = () => {
-    const request = axios.post(`${MASTER_NODE}/peers`, {
-      peer: SELF_P2P_NODE
+  _registerOnMaster = async port => {
+    const request = await axios.post(`${MASTER_NODE}/peers`, {
+      peer: SELF_P2P_NODE(port)
     });
-    console.log(request);
+  };
+  _getAddress = async port => {
+    const request = await axios.get(`${SELF_NODE(port)}/me/address`);
+    this.setState({
+      address: request.data
+    });
   };
 }
 
