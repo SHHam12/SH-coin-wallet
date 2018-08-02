@@ -1,14 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
-import {
-  Card,
-  Key,
-  KeyName,
-  Title,
-  Notification,
-  Button
-} from "Components/Shared";
+import { Card, Key, KeyName, Title, Button } from "Components/Shared";
 
 const Header = styled.div`
   margin: 50px 0;
@@ -65,51 +58,51 @@ const AppPresenter = ({
   handleInput,
   handleSubmit
 }) => (
-    <AppContainer>
-      <Header>
-        <Title>{isLoading ? "Loading..." : "Nomadcoin Wallet"}</Title>
-        <Button disabled={isMining} onClick={mineBlock}>
-          {isMining ? "Mining" : "Mine"}
-        </Button>
-      </Header>
-      <Card>
-        <Key>
-          <KeyName>Your address:</KeyName> <Key>{address}</Key>
-        </Key>
-        <Key>
-          <KeyName>Your balance:</KeyName> {balance} NMD
+  <AppContainer>
+    <Header>
+      <Title>{isLoading ? "Loading..." : "Nomadcoin Wallet"}</Title>
+      <Button disabled={isMining} onClick={mineBlock}>
+        {isMining ? "Mining" : "Mine"}
+      </Button>
+    </Header>
+    <Card>
+      <Key>
+        <KeyName>Your address:</KeyName> {address}
       </Key>
-      </Card>
-      <Card>
-        <Key>Send NMD: </Key>
-        <SendTxForm onSubmit={handleSubmit}>
-          <Input
-            placeholder={"Address"}
-            required
-            name="toAddress"
-            value={toAddress}
-            type={"text"}
-            onChange={handleInput}
-          />
-          <Input
-            placeholder={"Amount"}
-            required
-            name="amount"
-            type={"number"}
-            value={amount || ""}
-            onChange={handleInput}
-            max={balance}
-          />
-          <Submit
-            value={"Send"}
-            type={"submit"}
-            readOnly
-            disabled={!toAddress || !amount}
-          />
-        </SendTxForm>
-      </Card>
-    </AppContainer>
-  );
+      <Key>
+        <KeyName>Your balance:</KeyName> {balance} SHC
+      </Key>
+    </Card>
+    <Card>
+      <Key>Send SHC: </Key>
+      <SendTxForm onSubmit={handleSubmit}>
+        <Input
+          placeholder={"Address"}
+          required
+          name="toAddress"
+          value={toAddress}
+          type={"text"}
+          onChange={handleInput}
+        />
+        <Input
+          placeholder={"Amount"}
+          required
+          name="amount"
+          type={"number"}
+          value={amount || ""}
+          onChange={handleInput}
+          max={balance}
+        />
+        <Submit
+          value={"Send"}
+          type={"submit"}
+          readOnly
+          disabled={!toAddress || !amount}
+        />
+      </SendTxForm>
+    </Card>
+  </AppContainer>
+);
 
 AppPresenter.propTypes = {
   isLoading: PropTypes.bool.isRequired,
@@ -118,7 +111,7 @@ AppPresenter.propTypes = {
   mineBlock: PropTypes.func.isRequired,
   isMining: PropTypes.bool.isRequired,
   toAddress: PropTypes.string.isRequired,
-  amount: PropTypes.number.isRequired,
+  amount: PropTypes.string.isRequired,
   handleInput: PropTypes.func.isRequired,
   handleSubmit: PropTypes.func.isRequired
 };
