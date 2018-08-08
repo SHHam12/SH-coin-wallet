@@ -60,7 +60,7 @@ const AppPresenter = ({
 }) => (
   <AppContainer>
     <Header>
-      <Title>{isLoading ? "Loading..." : "Nomadcoin Wallet"}</Title>
+      <Title>{isLoading ? "Loading..." : "SH-coin Wallet"}</Title>
       <Button disabled={isMining} onClick={mineBlock}>
         {isMining ? "Mining" : "Mine"}
       </Button>
@@ -97,7 +97,7 @@ const AppPresenter = ({
           value={"Send"}
           type={"submit"}
           readOnly
-          disabled={!toAddress || !amount}
+          disabled={!toAddress || !amount || amount > balance}
         />
       </SendTxForm>
     </Card>
